@@ -14,7 +14,7 @@ jobs:
           namespace: admin
           token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
-            secret/data/ci_app_secret api_key
+            kv/data/ci_app_secret api_key
       - name: Build Docker Image
         run: docker build . --file Dockerfile --build-arg app_secret="${{ env.APP_SECRET }}" -t vault-action-exampleapp
       - name: Import Secrets
