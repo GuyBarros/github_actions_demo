@@ -18,12 +18,3 @@ jobs:
             kv/data/ci_app_secret app_secret | APP_SECRET
       - name: Build Docker Image
         run: docker build . --file Dockerfile --build-arg app_secret="${{ steps.secrets.outputs.APP_SECRET }}" -t vault-action-exampleapp
-      - name: Import Secrets
-        uses: hashicorp/vault-action@v2.3.1
-        with:
-          url: https://hcpvaultworkshop-vault.vault.90c8be71-8b86-4967-b3d0-913bf19b96a0.aws.hashicorp.cloud:8200
-          tlsSkipVerify: true
-          token: ${{ secrets.VAULT_TOKEN }}
-          namespace: admin
-          secrets: |
-            secret/data/ci app_secret
