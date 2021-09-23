@@ -9,8 +9,9 @@ jobs:
       - name: Import Secrets
         uses: hashicorp/vault-action@v2.0.1
         with:
-          url: http://127.0.0.1:8200
+          url: https://hcpvaultworkshop-vault.vault.90c8be71-8b86-4967-b3d0-913bf19b96a0.aws.hashicorp.cloud:8200
           tlsSkipVerify: true
+          namespace: admin
           token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
             secret/data/ci app_secret
