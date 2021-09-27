@@ -5,6 +5,14 @@ jobs:
   build:
     runs-on: self-hosted
     steps:
+      - name: Get AppRole RoleID
+        id: get_aprole_role_id
+        run: |
+          echo"roleId=" | vault read -field=role_id auth/approle/role/github/role-id >> $GITHUB_ENV
+      - name: Get AppRole SecretID
+        id: get_aprole_secret_id
+        run: |
+          echo"secretId=" | vault write -f -field=secret_id auth/approle/role/github/secret-id >> $GITHUB_ENV
       - uses: actions/checkout@v2
       - name: Import Secrets
         id: secrets
@@ -13,7 +21,8 @@ jobs:
           url: https://hcpvaultworkshop-vault.private.vault.90c8be71-8b86-4967-b3d0-913bf19b96a0.aws.hashicorp.cloud:8200
           tlsSkipVerify: true
           namespace: admin
-          token: ${{ secrets.VAULT_TOKEN }}
+          roleId: ${{ env.roleId }}
+          secretId: ${{ env.secretId }}
           secrets: |
             kv/data/ci_app_secret app_secret | APP_SECRET
       - name: Build Docker Image
