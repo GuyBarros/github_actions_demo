@@ -4,15 +4,16 @@ on: push
 jobs:
   build:
     runs-on: self-hosted
-    env:
-      roleId: ""
-      secretID: ""
     steps:
       - name: Get AppRole RoleID
+        env:
+          roleId: ""
         id: get_aprole_role_id
         run: |
           echo "roleId=" | vault read -field=role_id auth/approle/role/github/role-id >> $GITHUB_ENV
       - name: Get AppRole SecretID
+        env:
+          secretId: ""
         id: get_aprole_secret_id
         run: |
           echo "secretId=" | vault write -f -field=secret_id auth/approle/role/github/secret-id >> $GITHUB_ENV
