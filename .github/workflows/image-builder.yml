@@ -10,7 +10,7 @@ jobs:
         id: secrets
         uses: hashicorp/vault-action@v2.3.1
         with:
-          url: https://hcpvaultworkshop-vault.vault.90c8be71-8b86-4967-b3d0-913bf19b96a0.aws.hashicorp.cloud:8200
+          url: https://hcpvaultworkshop-vault.private.vault.90c8be71-8b86-4967-b3d0-913bf19b96a0.aws.hashicorp.cloud:8200
           tlsSkipVerify: true
           namespace: admin
           token: ${{ secrets.VAULT_TOKEN }}
