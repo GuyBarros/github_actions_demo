@@ -4,9 +4,6 @@ on: push
 jobs:
   build:
     runs-on: self-hosted
-    env:
-      roleId: ""
-      secretId: ""
     steps:
       - name: Get AppRole RoleID
         id: get_aprole_role_id
@@ -22,6 +19,7 @@ jobs:
           url: https://hcpvaultworkshop-vault.private.vault.90c8be71-8b86-4967-b3d0-913bf19b96a0.aws.hashicorp.cloud:8200
           tlsSkipVerify: true
           namespace: admin
+          method: approle
           roleId: ${{ steps.get_aprole_role_id.outputs.roleId }}
           secretId: ${{ steps.get_aprole_secret_id.outputs.secretId }}
           secrets: |
