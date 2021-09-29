@@ -25,8 +25,8 @@ jobs:
           tlsSkipVerify: true
           namespace: admin
           method: approle
-          roleId: 47a2461b-4a88-1e6a-b3cd-d841920b6e3e
-          secretId: 6856da06-8ad2-a496-b439-c4e37c0b4d23
+          roleId: ${{ steps.get_aprole_role_id.outputs.roleId }}
+          secretId: ${{ steps.get_aprole_secret_id.outputs.secretId }}
           secrets: |
             kv/data/ci_app_secret app_secret | APP_SECRET
       - name: Build Docker Image
