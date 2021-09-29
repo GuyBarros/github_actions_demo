@@ -7,10 +7,10 @@ jobs:
     steps:
       - name: Get AppRole RoleID
         id: get_aprole_role_id
-        run: echo '::set-output name=roleId::${vault read -field=role_id auth/approle/role/github/role-id}'
+        run: echo '::set-output name=roleId::$(vault read -field=role_id auth/approle/role/github/role-id)'
       - name: Get AppRole SecretID
         id: get_aprole_secret_id
-        run: echo '::set-output name=secretId::${vault read -field=role_id auth/approle/role/github/secret-id}'
+        run: echo '::set-output name=secretId::$(vault read -field=role_id auth/approle/role/github/secret-id)'
       - uses: actions/checkout@v2
       - name: Import Secrets
         id: secrets
