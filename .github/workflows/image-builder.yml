@@ -11,11 +11,12 @@ jobs:
       - name: Get AppRole SecretID
         id: get_aprole_secret_id
         run: echo "::set-output name=secretId::vault write -f -field=secret_id auth/approle/role/github/secret-id"
-        - name: Get AppRole RoleID
-        id: get_aprole_role_id
-        run: | 
-        echo ${{ steps.get_aprole_role_id.outputs.roleId }}
-        echo ${{ steps.get_aprole_secret_id.outputs.secretId }}
+      - name: Test AppRole RoleID
+        id: test_aprole_roleid
+        run: echo ${{ steps.get_aprole_role_id.outputs.roleId }}
+      - name: Test AppRole Secret ID
+        id: test_aprole_secretID
+        run: echo ${{ steps.get_aprole_secret_id.outputs.secretId }}
       - name: Import Secrets
         id: secrets
         uses: hashicorp/vault-action@v2.3.1
