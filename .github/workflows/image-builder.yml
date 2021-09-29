@@ -7,10 +7,10 @@ jobs:
     steps:
       - name: Get AppRole RoleID
         id: get_aprole_role_id
-        run: echo '::set-output name=roleId::$(vault read -field=role_id auth/approle/role/github/role-id)'
+        run: vault read -field=role_id auth/approle/role/github/role-id
       - name: Get AppRole SecretID
         id: get_aprole_secret_id
-        run: echo '::set-output name=secretId::$(vault read -field=role_id auth/approle/role/github/secret-id)'
+        run: vault write -f -field=secret_id auth/approle/role/github/secret-id
       - uses: actions/checkout@v2
       - name: Import Secrets
         id: secrets
@@ -20,8 +20,8 @@ jobs:
           tlsSkipVerify: true
           namespace: admin
           method: approle
-          roleId: ${{ steps.get_aprole_role_id.outputs.roleId }}
-          secretId: ${{ steps.get_aprole_secret_id.outputs.secretId }}
+          roleId: 47a2461b-4a88-1e6a-b3cd-d841920b6e3e
+          secretId: 6856da06-8ad2-a496-b439-c4e37c0b4d23
           secrets: |
             kv/data/ci_app_secret app_secret | APP_SECRET
       - name: Build Docker Image
